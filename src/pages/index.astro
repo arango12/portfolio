@@ -1,17 +1,103 @@
 ---
+/**
+ * Index Page (Home)
+ * Serves as the primary entry point. Integrates the global Layout,
+ * the theme toggle mechanism, Hero section, and dynamically fetches
+ * the projects collection to render the portfolio grid.
+ */
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Contact from '../components/Contact.astro';
 
+// Fetch and sort projects by the 'order' field defined in the schema
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Portafolio | Desarrollador Backend">
+  <nav class="max-w-5xl mx-auto px-6 py-8 flex justify-end">
+    <button
+      id="theme-toggle"
+      type="button"
+      aria-label="Toggle Dark Mode"
+      class="p-2 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors"
+    >
+      <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+      </svg>
+      <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12 md:py-20 flex flex-col items-start">
+    <p class="text-brand dark:text-brand-dark font-mono font-medium mb-4 tracking-wide">
+      // Hola, mundo. Soy
+    </p>
+    <h1 class="text-5xl md:text-7xl font-bold text-zinc-900 dark:text-zinc-50 mb-6 tracking-tight">
+      Eddie Arango.
+    </h1>
+    <h2 class="text-3xl md:text-5xl font-bold text-zinc-500 dark:text-zinc-400 mb-8">
+      Construyo sistemas backend robustos.
+    </h2>
+    <p class="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-12">
+      Desarrollador de Software especializado en arquitectura de APIs, integración de sistemas y flujo seguro de datos. 
+      Actualmente transformando requerimientos complejos en soluciones escalables.
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href="#projects" class="px-6 py-3 rounded-lg bg-brand hover:bg-brand-dark text-white font-medium transition-colors">
+        Ver Proyectos
+      </a>
+      <a href="https://github.com/arango12" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-lg border border-zinc-300 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium transition-colors">
+        Perfil de GitHub
+      </a>
+    </div>
+  </main>
+
+  <section id="projects" class="max-w-5xl mx-auto px-6 py-20">
+    <div class="flex items-center gap-4 mb-12">
+      <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Casos de Estudio</h2>
+      <div class="h-px flex-grow bg-zinc-200 dark:bg-zinc-800"></div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedProjects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+  <Contact />
+
+  <script>
+    const initThemeToggle = () => {
+      const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+      const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+      const themeToggleBtn = document.getElementById('theme-toggle');
+
+      if (!themeToggleDarkIcon || !themeToggleLightIcon || !themeToggleBtn) return;
+
+      if (document.documentElement.classList.contains('dark')) {
+        themeToggleLightIcon.classList.remove('hidden');
+      } else {
+        themeToggleDarkIcon.classList.remove('hidden');
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        themeToggleDarkIcon.classList.toggle('hidden');
+        themeToggleLightIcon.classList.toggle('hidden');
+
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    };
+
+    initThemeToggle();
+  </script>
+</Layout>

@@ -1,0 +1,65 @@
+---
+/**
+ * Master Layout Component
+ * Defines the global HTML structure, imports the Tailwind CSS system,
+ * and handles the Dark Mode initialization logic to prevent FOUC (Flash of Unstyled Content).
+ */
+import '../styles/global.css';
+
+// TypeScript Interface for Props
+interface Props {
+	title: string;
+	description?: string;
+}
+
+// Destructuring props with default values for SEO
+const { 
+    title, 
+    description = "Backend Developer Portfolio - Specialized in Java, Spring Boot, Node.js and Systems Integration." 
+} = Astro.props;
+
+//Footer import
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		{/* Inline Script for Dark Mode Initialization.
+			Placed in the <head> to execute BEFORE the body renders.
+			Checks localStorage first, then falls back to system preferences.
+		*/}
+		<script is:inline>
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					return 'dark';
+				}
+				return 'light';
+			})();
+
+			if (theme === 'light') {
+				document.documentElement.classList.remove('dark');
+			} else {
+				document.documentElement.classList.add('dark');
+			}
+
+			window.localStorage.setItem('theme', theme || 'light');
+		</script>
+	</head>
+    <body class="flex flex-col min-h-screen">
+		<div class="flex-grow">
+			<slot />
+		</div>
+		<Footer />
+	</body>
+</html>

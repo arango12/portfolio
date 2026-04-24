@@ -1,0 +1,46 @@
+/**
+ * System Fonts Configuration
+ * Primary: Inter (UI & Typography)
+ * Secondary: JetBrains Mono (Code Snippets & Tech details)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/**
+ * Tailwind CSS v4 Core Engine
+ */
+@import "tailwindcss";
+
+/**
+ * Design System Theme Variables
+ */
+@theme {
+  /* Typography Injection */
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  /* Corporate Palette: Cobalt Blue */
+  --color-brand: #2563EB;
+  --color-brand-dark: #1D4ED8;
+}
+
+/**
+ * Dark Mode Configuration
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/**
+ * Global Base Layer Overrides
+ * Establishes foundational states for layout, typography anti-aliasing, 
+ * and handles the Light/Dark mode reactive transitions.
+ */
+@layer base {
+  body {
+    /* Light Mode (Default State) */
+    @apply bg-zinc-50 text-zinc-900 transition-colors duration-300 antialiased;
+  }
+
+  .dark body {
+    /* Dark Mode (Active State) */
+    @apply bg-zinc-950 text-zinc-300;
+  }
+}
