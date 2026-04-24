@@ -7,8 +7,8 @@
  */
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import ProjectCard from '../components/projectCard.astro';
-import Contact from '../components/contact.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Contact from '../components/Contact.astro';
 
 // Fetch and sort projects by the 'order' field defined in the schema
 const allProjects = await getCollection('projects');
