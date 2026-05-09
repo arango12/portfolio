@@ -1,8 +1,10 @@
 ---
-title: "TurinFE - SaaS de Facturación Electrónica"
-description: "Sistema de facturación electrónica seguro y escalable, integrado con las APIs del SRI de Ecuador para la firma de documentos en tiempo real."
+title: "TurinFE - Facturación Electrónica"
+description: "SaaS comercial para el mercado ecuatoriano que automatiza el ciclo completo de comprobantes electrónicos con firma XADES-BES y validación SRI."
 techStack: ["Node.js", "Express", "MySQL", "JWT"]
 liveUrl: "https://turinfe.com"
+githubUrl: "https://documenter.getpostman.com/view/54476204/2sBXqKofcU"
+videoUrl: "https://youtube.com/" # <--- AQUÍ PONES EL LINK
 isPrivateRepo: true
 order: 1
 ---

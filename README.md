@@ -1,43 +1,31 @@
-# Astro Starter Kit: Minimal
+# Eddie Arango - Portafolio Profesional de Ingeniería
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Una vitrina técnica de alto rendimiento construida con **Astro** y **Tailwind CSS**. Este proyecto sirve como prueba de concepto para arquitecturas frontend modernas, con énfasis en el rendimiento, la accesibilidad y la entrega automatizada.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+[Read English Version](./README.en.md)
 
-## 🚀 Project Structure
+## 🏗️ Decisiones Arquitectónicas
 
-Inside of your Astro project, you'll see the following folders and files:
+### 1. Arquitectura de Islas (Astro)
+Elegí **Astro** para aprovechar su patrón de "hidratación parcial". A diferencia de las SPAs tradicionales (React/Vue), este sitio no envía JavaScript al cliente por defecto. Los elementos interactivos son "islas" aisladas, garantizando un Tiempo de Interactividad (TTI) instantáneo.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### 2. Gestión de Contenido Escalable
+El portafolio utiliza **Astro Content Collections**. Los proyectos y casos de éxito se almacenan como archivos Markdown con tipado fuerte. Esto garantiza:
+- **Validación Estricta de Esquemas:** Uso de `zod` para asegurar la integridad de los datos.
+- **Mantenibilidad:** Añadir un proyecto es tan simple como crear un archivo `.md` sin tocar la lógica de la interfaz.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### 3. Rendimiento y SEO
+- **Puntaje Lighthouse:** Optimizado para alcanzar 100/100 en todas las métricas.
+- **Optimización de Imágenes:** Procesamiento automatizado de activos mediante el servicio nativo de Astro.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🛠️ Stack Tecnológico
+- **Framework:** Astro
+- **Estilos:** Tailwind CSS
+- **Lenguaje:** TypeScript
+- **Despliegue:** Netlify con CI/CD automatizado.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 🚀 DevOps y Flujo de Trabajo
+Cada `push` a la rama `main` dispara una compilación automática en Netlify, ejecutando pruebas de esquema antes del despliegue a producción.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+*Desarrollado con un enfoque en la excelencia técnica.*
